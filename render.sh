@@ -1,0 +1,1 @@
+./build/ponyray > output.ppm
