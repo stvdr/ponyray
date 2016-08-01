@@ -1,43 +1,36 @@
 use "math"
 
-// primitive GeometricObject
-//   //new create() => GeometricObject
-//
-//   fun apply(r: Ray3): (Bool | ShadeRec) =>
-//     true
+primitive NoHit
+
+class val Hit
+  let point: Point3
+  let color: RGBColor
+  let normal: Vec3
+  let t: F64
+
+  new val create(t': F64 = 0.0, point': Point3, color': RGBColor, normal': Vec3) =>
+    t = t'
+    point = point'
+    color = color'
+    normal = normal'
+
+type HitResult is (Hit | NoHit)
+
 
 trait GeometricObject
-  fun hit(r: Ray3): ShadeRec
-  fun color(): RGBColor
+  fun hit(r: Ray3): HitResult
 
-type NonePoint is (Point3 | None)
-type NoneColor is (RGBColor | None)
-type NoneVector3 is (Vec3 | None)
-
-class val ShadeRec
-  let isHit: Bool
-  let hitPoint: NonePoint
-  let hitColor: NoneColor
-  let hitNormal: NoneVector3
-
-  new val create(isHit': Bool = false,
-                  hitPoint': NonePoint = None,
-                  hitColor': NoneColor = None,
-                  hitNormal': NoneVector3 = None) =>
-    isHit= isHit'
-    hitPoint = hitPoint'
-    hitColor = hitColor'
-    hitNormal = hitNormal'
-
-class SimpleSphere is GeometricObject
+class val SimpleSphere is GeometricObject
   let center: Point3
   let radius: F64
+  let color: RGBColor
 
-  new create(center': Point3, radius': F64) =>
+  new create(center': Point3, radius': F64, color': RGBColor) =>
     center = center'
     radius = radius'
+    color = color'
 
-  fun hit(r: Ray3): ShadeRec =>
+  fun hit(r: Ray3): HitResult =>
     // TODO: Check for intersection between ray and the sphere
     //ShadeRec()
 
@@ -58,16 +51,12 @@ class SimpleSphere is GeometricObject
       end
 
       if t > 0.0001 then
-        return ShadeRec(
-          true,
+        return Hit(t,
           r.o + (r.d * t),
-          RGBColor(1.0, 0.0, 0.0),
+          color,
           (temp + (r.d*t)) / radius)
       end
     end
 
     // Default to no hit
-    ShadeRec()
-
-  fun color(): RGBColor =>
-    RGBColors.red()
+    NoHit
