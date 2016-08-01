@@ -28,5 +28,5 @@ class MultiObjectTracer is Tracer
     | let h: Hit =>
       h.color
     else
-      RGBColors.black()
+      _world.backgroundColor
     end
