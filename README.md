@@ -6,5 +6,5 @@ A raytracer written in Pony. The code is based on the title: "Ray Tracing from t
 `make build`
 
 ### Running
-Ponyray outputs the rendered image as standard output in the form of a ppm file:
+Ponyray outputs the rendered image to standard output in the form of a ppm file:
 `./build/ponyray > output.ppm`
