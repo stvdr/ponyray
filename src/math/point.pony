@@ -28,3 +28,20 @@ class val Point3 is (Equatable[Point3] & Stringable)
 
   fun neg(): Point3 =>
     Point3(-x, -y, -z)
+
+class val Point2 is (Equatable[Point2] & Stringable)
+  let x: F64
+  let y: F64
+
+  new val create(x': F64, y': F64) =>
+    x = x'
+    y = y'
+
+  fun eq(p: Point2): Bool =>
+    (x == p.x) and (y == p.y)
+
+  fun ne(p: Point2): Bool =>
+    not eq(p)
+
+  fun string(fmt: FormatSettings = FormatSettingsDefault): String iso^ =>
+	   ("(" + x.string() + "," + y.string() + ")").string(fmt)
