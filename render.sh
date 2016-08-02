@@ -1,2 +1,2 @@
 make build
-./build/ponyray > output.ppm
+./build/ponyray > output_`date +%s`.ppm
