@@ -10,6 +10,7 @@ actor Main
     let w: World = World
     w.addObject(SimpleSphere(Point3(0, 0, 0), 250.0, RGBColor(1.0, 0.0, 0.0)))
     w.addObject(SimpleSphere(Point3(200, 0, 0), 75.0, RGBColor(0.0, 1.0, 0.0)))
+    w.addObject(SimpleSphere(Point3(-300, 250, -40), 125, RGBColor(0.0, 1.0, 1.0)))
 
     //let tracer: Tracer = SimpleSphereTracer(w)
     let tracer: Tracer = MultiObjectTracer(w)
