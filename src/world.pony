@@ -8,8 +8,8 @@ class World
   let backgroundColor: RGBColor
   let objects: Array[GeometricObject] = Array[GeometricObject]
 
-  new create() =>
-    viewPlane = ViewPlane(1.0, 800, 800, 1.0)
+  new create(viewPlane': ViewPlane) =>
+    viewPlane = viewPlane'
     backgroundColor = RGBColors.black()
 
   fun ref addObject(obj: GeometricObject) =>
@@ -34,14 +34,15 @@ class World
         for c in Range[USize](0, viewPlane.horizontal.usize()) do
           var pixelColor = RGBColors.black()
 
-          for p in Range[USize](0, n) do
-            ppx = viewPlane.pixelSize * (c.f64() - ((0.5 * viewPlane.horizontal.f64()) + mt.real()))
-            ppy = viewPlane.pixelSize * (r.f64() - ((0.5 * viewPlane.vertical.f64()) + mt.real()))
+          for s in Range[USize](0, viewPlane.sampler.getNumSamples()) do
+            let sample = viewPlane.sampler.getSample()
+            ppx = viewPlane.pixelSize * (c.f64() - ((0.5 * viewPlane.horizontal.f64()) + sample.x))
+            ppy = viewPlane.pixelSize * (r.f64() - ((0.5 * viewPlane.vertical.f64()) + sample.y))
             ray = Ray3(Point3(ppx, ppy, zw), Vec3(0, 0, -1))
             pixelColor = pixelColor + tracer.trace(ray)
           end
 
-          let color: RGBColor = pixelColor.divScalar(16.0)
+          let color: RGBColor = pixelColor.divScalar(viewPlane.sampler.getNumSamples().f64())
           img.setPixel(r, c, (color.r*255).u8(), (color.g*255).u8(), (color.b*255).u8())
 
         end
