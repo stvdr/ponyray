@@ -2,18 +2,15 @@ use "random"
 use "time"
 use "math"
 
-// class RandomSampler is Sampler
-//   var samples: U32
-//   var jump: U64
-//   let sets: U32 = 83
-// 
-//   fun ref setNumberOfSamples(n: U32) =>
-//     samples = n
-//
-//   fun ref getNextSample(): Point2 =>
-//     count = count +
-//     if (count % samples == 0) then
-//       mt = MT(Time.nanos())
-//       jump = mt.u32() % sets
-//
-//     samples(jump + (count % samples))
+class RandomSampler is Sampler
+  let samples: USize
+  let mt: MT
+
+  new create(samples': USize) =>
+    samples = samples'
+    mt = MT(Time.nanos())
+
+  fun getNumSamples(): USize => samples
+
+  fun ref getSample(): Point2 =>
+    Point2(mt.real(), mt.real())

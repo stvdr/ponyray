@@ -8,14 +8,13 @@ actor Main
   new create(env: Env) =>
     _env = env
 
-    let vp: ViewPlane = ViewPlane(1.0, 800, 800, 1.0, SinglePixelSampler)
-
+    //let vp: ViewPlane = ViewPlane(1.0, 1600, 1200, 1.0, RandomSampler(16))
+    //let vp: ViewPlane = ViewPlane(1.0, 1600, 1200, 1.0, SinglePixelSampler)
+    let vp: ViewPlane = ViewPlane(1.0, 1600, 1200, 1.0, JitteredSampler(16))
     let w: World = World(vp)
-    w.addObject(SimpleSphere(Point3(0, 0, 0), 250.0, RGBColor(1.0, 0.0, 0.0)))
-    w.addObject(SimpleSphere(Point3(200, 0, 0), 75.0, RGBColor(0.0, 1.0, 0.0)))
+    w.addObject(SimpleSphere(Point3(1500, 1500, 0), 2500.0, RGBColor(1.0, 0.0, 0.0)))
     w.addObject(SimpleSphere(Point3(-300, 250, -40), 125, RGBColor(0.0, 1.0, 1.0)))
 
-    //let tracer: Tracer = SimpleSphereTracer(w)
     let tracer: Tracer = MultiObjectTracer(w)
     let writer: ImageWriter = PPMImageWriter(_env)
 

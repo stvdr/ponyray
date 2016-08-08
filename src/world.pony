@@ -15,7 +15,7 @@ class World
   fun ref addObject(obj: GeometricObject) =>
     objects.push(obj)
 
-  fun render(tracer: Tracer): (Image | None) =>
+  fun ref render(tracer: Tracer): (Image | None) =>
     let n: USize = 16 // sqrt of the # of samples per pixel (n^2 samples total)
     let zw: F64 = 100.0
     var x: F64 = 0
@@ -35,7 +35,7 @@ class World
           var pixelColor = RGBColors.black()
 
           for s in Range[USize](0, viewPlane.sampler.getNumSamples()) do
-            let sample = viewPlane.sampler.getSample()
+            let sample: Point2 = viewPlane.sampler.getSample()
             ppx = viewPlane.pixelSize * (c.f64() - ((0.5 * viewPlane.horizontal.f64()) + sample.x))
             ppy = viewPlane.pixelSize * (r.f64() - ((0.5 * viewPlane.vertical.f64()) + sample.y))
             ray = Ray3(Point3(ppx, ppy, zw), Vec3(0, 0, -1))
