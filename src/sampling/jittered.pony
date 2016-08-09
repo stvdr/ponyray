@@ -8,7 +8,7 @@ class JitteredSampler is Sampler
   let percentPerStratum: F64
   let mt: MT
 
-  var curSamplePos: USize = 0
+  var curSamplePos: USize = -1
 
   new create(samples': USize) =>
     samplesSqrt = samples'.f64().sqrt().usize().f64()
@@ -21,7 +21,7 @@ class JitteredSampler is Sampler
   fun ref getSample(): Point2 =>
     curSamplePos = (curSamplePos+1) % samples
     
-    let row: USize = (curSamplePos.f64() / samplesSqrt).usize()
-    let col: USize = (curSamplePos % samplesSqrt.usize()).usize()
+    let row: F64 = (curSamplePos.f64() / samplesSqrt).usize().f64()*percentPerStratum
+    let col: F64 = (curSamplePos % samplesSqrt.usize()).f64()*percentPerStratum
 
-    Point2(row.f64() + (mt.real() / samplesSqrt), col.f64() + (mt.real() / samplesSqrt))
+    Point2(col + (mt.real() / samplesSqrt), row + (mt.real() / samplesSqrt))

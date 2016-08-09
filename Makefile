@@ -12,6 +12,6 @@ build:
 run:
 	./build/ponyray
 
-test:
-	ponyc -p src --debug -o build/math src/math/tests 
-	./build/math/tests
+#test:
+	#ponyc -p src --debug -o build src/test
+	#./build/test
