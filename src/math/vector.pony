@@ -35,7 +35,7 @@ class val Vec3 is (Equatable[Vec3] & Stringable)
 			(x * u.x) + (y * u.y) + (z * u.z)
 
 		fun cross(u: Vec3): Vec3 =>
-			Vec3((y*u.z) - (u.z*y), (z*u.x) - (x*u.z), (x*u.y) - (y*u.x))
+			Vec3((y*u.z) - (z*u.y), (z*u.x) - (x*u.z), (x*u.y) - (y*u.x))
 
 		fun magnitude_squared(): F64 =>
 			(x*x) + (y*y) + (z*z)
