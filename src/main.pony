@@ -10,16 +10,18 @@ actor Main
 
     //let vp: ViewPlane = ViewPlane(1.0, 1600, 1200, 1.0, RandomSampler(16))
     //let vp: ViewPlane = ViewPlane(1.0, 1600, 1200, 1.0, SinglePixelSampler)
-    let vp: ViewPlane = ViewPlane(1.0, 1600, 1200, 1.0, JitteredSampler(16))
-    let w: World = World(vp)
-    w.addObject(SimpleSphere(Point3(1500, 1500, 0), 2500.0, RGBColor(1.0, 0.0, 0.0)))
-    w.addObject(SimpleSphere(Point3(-300, 250, -40), 125, RGBColor(0.0, 1.0, 1.0)))
-
-    let tracer: Tracer = MultiObjectTracer(w)
+    
     let writer: ImageWriter = PPMImageWriter(_env)
+    let vp: ViewPlane = ViewPlane(1.0, 800, 600, 1.0, JitteredSampler(16))
+    let w: World = World(vp)
+    let tracer: Tracer = MultiObjectTracer(w)
+    let cam: Camera = PinholeCamera(Point3(0, 0, 500), Point3(0.0, 0.0, 0.0), 500)
 
+    w.addObject(SimpleSphere(Point3(-45, 45, 40), 50.0, RGBColor(1.0, 0.0, 0.0)))
+    //w.addObject(SimpleSphere(Point3(-300, 250, -40), 125, RGBColor(0.0, 1.0, 1.0)))
+    
     try
-      match w.render(tracer)
+      match cam.render_scene(w, tracer)
       | let img: Image =>
         writer.writeImage(img)
       | None => _env.out.print("Received None")
