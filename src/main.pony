@@ -1,6 +1,8 @@
 use "math"
 use "files"
 use "sampling"
+use "geometry"
+use "material"
 
 actor Main
   var _env: Env
@@ -17,8 +19,7 @@ actor Main
     let tracer: Tracer = MultiObjectTracer(w)
     let cam: Camera = PinholeCamera(Point3(0, 0, 500), Point3(0.0, 0.0, 0.0), 500)
 
-    w.addObject(SimpleSphere(Point3(-45, 45, 40), 50.0, RGBColor(1.0, 0.0, 0.0)))
-    //w.addObject(SimpleSphere(Point3(-300, 250, -40), 125, RGBColor(0.0, 1.0, 1.0)))
+    w.addObject(Sphere(Point3(-45, 45, 40), 50.0, RGBColor(1.0, 0.0, 0.0)))
     
     try
       match cam.render_scene(w, tracer)

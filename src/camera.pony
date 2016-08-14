@@ -1,5 +1,6 @@
 use "collections"
 use "math"
+use "material"
 
 trait Camera
   fun render_scene(world: World, tracer: Tracer): (Image | None)

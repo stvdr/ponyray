@@ -1,5 +1,7 @@
 use "collections"
 use "math"
+use "geometry"
+use "material"
 
 class World
   let viewPlane: ViewPlane

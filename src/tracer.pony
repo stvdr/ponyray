@@ -1,4 +1,6 @@
 use "math"
+use "geometry"
+use "material"
 
 interface Tracer
   fun trace(ray: Ray3): RGBColor
