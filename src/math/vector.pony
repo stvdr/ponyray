@@ -43,5 +43,8 @@ class val Vec3 is (Equatable[Vec3] & Stringable)
 		fun magnitude(): F64 =>
 			magnitude_squared().sqrt()
 
+    fun normalize(): Vec3 =>
+      div(magnitude())
+
 		fun string(fmt: FormatSettings = FormatSettingsDefault): String iso^ =>
 			("(" + x.string() + "," + y.string() + "," + z.string() + ")").string(fmt)
